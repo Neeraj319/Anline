@@ -25,12 +25,15 @@
             {% csrf_token %}
             <label for="filter">filter by</label>
             <select name="filter">
-                <option value="Toys">Toys</option>
-                <option value="Electronics">Electronics</option>
+                {% for filter , _ in filters %}
+                <option value="{{filter}}">{{filter}}</option>
+                {% endfor %}
+                
+                <!-- <option value="Electronics">Electronics</option>
                 <option value="Food">Food</option>
                 <option value="Gaming">Gaming</option>
                 <option value="Clothing">Clothing</option>
-                <option value="Vehicle">Vehicle</option>
+                <option value="Vehicle">Vehicle</option> -->
             </select>
             <button class='btn btn-success'>filter search</button>
             </label>
@@ -39,7 +42,7 @@
         <a href="{% url 'cart' %}" class="float-right btn btn-dark">cart </a>
         {% for product in products%}
         <a href="{% url 'product_detail' product.pk %}">
-            <img src="{{product.pricture.url}}" width='200' height='200' alt="">
+            <img src="{{product.thumbnail.url}}" width='200' height='200' alt="">
             <br>
             <h1>{{product.name}}</h1>
 

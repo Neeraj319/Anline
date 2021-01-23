@@ -9,27 +9,20 @@
 </head>
 <body>
     <div class="container">
-    <a href="{% url 'home' %}">home</a>
-    <br>
-    <hr>
-    {% if result %}
-    {% for product in result %}
-    <a href="{% url 'product_detail' product.pk %}" >
-        <img src="{{product.thumbnail.url}}" width = '200' height = '200' alt="">
-        <br>
-        <h1>{{product.name}}</h1>
-            
-        </a>
-        @
-        {{product.price}}
-        <br>
-        <hr>
-    {% endfor %}
-    {% else %}
     <h1>
-        no search results
+        are you sure you want to buy?
+       {{product.name}}
+       <br>
     </h1>
-    {% endif %}
+    <br>
+    <form method="post">
+    {% csrf_token %}
+    <button class = 'btn btn-dark'>confirm</button>
+    </form>
+    {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+                {% endfor %}
     </div>
+    
 </body>
 </html>

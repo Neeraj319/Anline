@@ -1,15 +1,16 @@
 from django.shortcuts import render, redirect, HttpResponse, Http404
-from .models import Product, Cart
+from .models import Product, Cart, ProductImage
 from django.shortcuts import get_object_or_404
 from django.contrib import messages
-
 from django.contrib.auth.decorators import login_required
-
-
+from .models import an_type
+from django.core.mail import send_mail
 # Create your views here.
+
+
 def home(request):
     products = Product.objects.all()
-    context = {'products': products}
+    context = {'products': products, 'filters': an_type}
     return render(request, 'index.html', context)
 
 
@@ -21,14 +22,17 @@ def product_detail(request, pk):
         cart = Cart(cart_product=product, user=request.user)
         cart.save()
         messages.success(request, 'item added to cartsucessfully')
+    more_product_images = ProductImage.objects.filter(product=product)
     try:
+
         cart = Cart.objects.get(cart_product=product, user=request.user)
     except:
         cart = {
             'cart_product': False
         }
     print(cart)
-    context = {'product': product, 'cart': cart}
+    context = {'product': product, 'cart': cart,
+               'more_images': more_product_images}
     return render(request, 'detail_product.html', context)
 
 
@@ -60,3 +64,16 @@ def search(request):
             'result': serach_result
         }
     return render(request, 'search.html', context)
+
+
+def buy_product(request, pk):
+    product = Product.objects.get(pk=pk)
+    user_email = request.user.email
+    if request.method == "POST":
+        send_mail('order came', 'somebody wants to buy' + product.name, user_email,  [
+                  'itskop520@gmail.com'])
+        messages.success(request, 'item buyed sucessflly')
+    context = {
+        'product': product
+    }
+    return render(request, 'buy.html', context)
