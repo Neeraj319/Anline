@@ -9,14 +9,15 @@ class Product(models.Model):
     pricture = models.ImageField(null=True,
                                  blank=True,
                                  upload_to='product_images')
-    price = models.IntegerField()
+    price = models.FloatField()
     an_type = (
         ('Electronics', 'Electronics'),
         ('Furniture', 'Furniture'),
         ('Food', 'Food'),
         ('Gaming', "Gaming"),
         ('Toys', 'Toys'),
-        ('Clothing', 'Clothing')
+        ('Clothing', 'Clothing'),
+        ('Vehicle', 'Vehicle')
     )
     product_type = models.CharField(max_length=50, choices=an_type)
 

@@ -15,13 +15,34 @@
         <h1>
             online shoping
         </h1>
-        <a href="{% url 'cart' %}" class="float-right btn btn-dark" >cart </a>
-        {% for product in products%}
-        <a href="{% url 'product_detail' product.pk %}" >
-        <img src="{{product.pricture.url}}" width = '200' height = '200' alt="">
+        <form method="GET" action="{% url 'search' %}">
+
+            <input type=" text" name='query'>
+            <button class='btn btn-success'>search</button>
+        </form>
         <br>
-        <h1>{{product.name}}</h1>
-            
+        <form method="POST" action="{% url 'search' %}">
+            {% csrf_token %}
+            <label for="filter">filter by</label>
+            <select name="filter">
+                <option value="Toys">Toys</option>
+                <option value="Electronics">Electronics</option>
+                <option value="Food">Food</option>
+                <option value="Gaming">Gaming</option>
+                <option value="Clothing">Clothing</option>
+                <option value="Vehicle">Vehicle</option>
+            </select>
+            <button class='btn btn-success'>filter search</button>
+            </label>
+        </form>
+        <br>
+        <a href="{% url 'cart' %}" class="float-right btn btn-dark">cart </a>
+        {% for product in products%}
+        <a href="{% url 'product_detail' product.pk %}">
+            <img src="{{product.pricture.url}}" width='200' height='200' alt="">
+            <br>
+            <h1>{{product.name}}</h1>
+
         </a>
         @
         {{product.price}}
@@ -30,14 +51,14 @@
         {% endfor %}
     </div>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"></script>
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
+    </script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+    </script>
 </body>
 
 </html>

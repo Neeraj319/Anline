@@ -25,9 +25,7 @@
         <h1>{{product.name}}</h1>
         
         <p>
-            {{product.description}}
-            @
-            {{product.price}}
+            {{product.description}}@{{product.price}}
         </p>
         {% if cart.cart_product %}
         item already in cart

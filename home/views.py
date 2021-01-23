@@ -9,7 +9,6 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 def home(request):
     products = Product.objects.all()
-    print(products)
     context = {'products': products}
     return render(request, 'index.html', context)
 
@@ -45,3 +44,19 @@ def cart(request):
         return redirect('cart')
     context = {'cart_list': products_on_cart}
     return render(request, 'cart.html', context)
+
+
+def search(request):
+    if request.method == "GET":
+        query = request.GET.get('query')
+        serach_result = Product.objects.filter(name__icontains=query)
+        context = {
+            'result': serach_result
+        }
+    if request.method == "POST":
+        query = request.POST.get('filter')
+        serach_result = Product.objects.filter(product_type__icontains=query)
+        context = {
+            'result': serach_result
+        }
+    return render(request, 'search.html', context)
