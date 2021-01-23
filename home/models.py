@@ -6,6 +6,9 @@ from django.contrib.auth.models import User
 class Product(models.Model):
     name = models.CharField(max_length=200)
     description = models.TextField()
+    pricture = models.ImageField(null=True,
+                                 blank=True,
+                                 upload_to='media/product_images')
     price = models.IntegerField()
 
     def __str__(self):

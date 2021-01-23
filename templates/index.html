@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+{% load static %}
 
 <head>
     <meta charset="UTF-8">
@@ -16,7 +17,9 @@
         </h1>
         <a href="{% url 'cart' %}" class="float-right btn btn-dark">cart </a>
         {% for product in products%}
-        <a href="{% url 'product_detail' product.pk %}">{{product.name}}</a>
+        <a href="{% url 'product_detail' product.pk %}">{{product.name}}
+            <img src="{{product.pricture.url}}" alt="">
+        </a>
         @
         {{product.price}}
         <br>

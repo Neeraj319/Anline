@@ -3,6 +3,8 @@ from .models import Product, Cart
 from django.shortcuts import get_object_or_404
 from django.contrib import messages
 
+from django.contrib.auth.decorators import login_required
+
 
 # Create your views here.
 def home(request):
@@ -15,6 +17,8 @@ def home(request):
 def product_detail(request, pk):
     product = Product.objects.get(pk=pk)
     if request.method == 'POST':
+        if request.user.is_anonymous:
+            return redirect('login')
         cart = Cart(cart_product=product, user=request.user)
         cart.save()
         messages.success(request, 'item added to cartsucessfully')
@@ -22,6 +26,7 @@ def product_detail(request, pk):
     return render(request, 'detail_product.html', context)
 
 
+@login_required
 def cart(request):
     products_on_cart = Cart.objects.filter(user=request.user)
     print(products_on_cart)
