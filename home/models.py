@@ -8,8 +8,17 @@ class Product(models.Model):
     description = models.TextField()
     pricture = models.ImageField(null=True,
                                  blank=True,
-                                 upload_to='media/product_images')
+                                 upload_to='product_images')
     price = models.IntegerField()
+    an_type = (
+        ('Electronics', 'Electronics'),
+        ('Furniture', 'Furniture'),
+        ('Food', 'Food'),
+        ('Gaming', "Gaming"),
+        ('Toys', 'Toys'),
+        ('Clothing', 'Clothing')
+    )
+    product_type = models.CharField(max_length=50, choices=an_type)
 
     def __str__(self):
         return self.name

@@ -11,14 +11,26 @@
 
 <body>
     <a href="{% url 'home' %}">home</a>
-    <h1>
+    
+    <div class="container">
+<h1>
         My cart
     </h1>
-    <div class="container">
-
+    <br>
         {% for cart in cart_list %}
-        <a href="{% url 'product_detail' cart.cart_product.pk %}">{{cart}}</a>
-        <br>
+        <a href="{% url 'product_detail' cart.cart_product.pk %}">
+       <h1>{{cart}}</h1> 
+       <form method="POST">
+       {% csrf_token %}
+       <br>
+       <input type='hidden' value = '{{cart.pk}}' name = 'cart_item' >
+       <button class = 'btn btn-primary'>delte this item from your cart</button>
+       </form>
+    
+         <img src="{{cart.cart_product.pricture.url}}" width = '200' height = '200' alt="">
+         <br>
+        </a>
+        <hr>
         {% endfor %}
     </div>
 

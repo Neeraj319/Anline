@@ -22,7 +22,14 @@ def product_detail(request, pk):
         cart = Cart(cart_product=product, user=request.user)
         cart.save()
         messages.success(request, 'item added to cartsucessfully')
-    context = {'product': product}
+    try:
+        cart = Cart.objects.get(cart_product=product, user=request.user)
+    except:
+        cart = {
+            'cart_product': False
+        }
+    print(cart)
+    context = {'product': product, 'cart': cart}
     return render(request, 'detail_product.html', context)
 
 
@@ -30,5 +37,11 @@ def product_detail(request, pk):
 def cart(request):
     products_on_cart = Cart.objects.filter(user=request.user)
     print(products_on_cart)
+    if request.method == "POST":
+        cart_item = request.POST.get('cart_item')
+        cart_item_to_delete = Cart.objects.get(pk=cart_item)
+        print(cart_item_to_delete)
+        cart_item_to_delete.delete()
+        return redirect('cart')
     context = {'cart_list': products_on_cart}
     return render(request, 'cart.html', context)
