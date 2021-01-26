@@ -1,28 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <title>Document</title>
 </head>
+
 <body>
     <div class="container">
-    <h1>
-        are you sure you want to buy?
-       {{product.name}}
-       <br>
-    </h1>
-    <br>
-    <form method="post">
-    {% csrf_token %}
-    <button class = 'btn btn-dark'>confirm</button>
-    </form>
-    {% for message in messages %}
-            <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
-                {% endfor %}
+        <h1>
+            are you sure you want to buy?
+            {{product.name}}
+            <br>
+        </h1>
+        <br>
+        <form method="post">
+            {% csrf_token %}
+            <button class='btn btn-dark'>confirm</button>
+        </form>
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+            {% endfor %}
     </div>
-    
+
 </body>
+
 </html>

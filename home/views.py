@@ -66,6 +66,7 @@ def search(request):
     return render(request, 'search.html', context)
 
 
+@login_required
 def buy_product(request, pk):
     product = Product.objects.get(pk=pk)
     user_email = request.user.email
