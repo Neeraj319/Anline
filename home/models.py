@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-
+from Auth_users.models import Buyer
 an_type = (
     ('Electronics', 'Electronics'),
     ('Furniture', 'Furniture'),
@@ -28,7 +28,7 @@ class Product(models.Model):
 
 
 class Cart(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(Buyer, on_delete=models.CASCADE)
     cart_product = models.ForeignKey(Product, on_delete=models.CASCADE)
 
     def __str__(self):

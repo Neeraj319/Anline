@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-{% load static %}
 
 <head>
     <meta charset="UTF-8">
@@ -12,8 +11,10 @@
 
 <body>
     <div class="container">
+        <a href="{% url 'SellersHome' %}">Home</a>
+        <br>
         <h1>
-            online shoping
+            Your Products
         </h1>
         <form method="GET" action="{% url 'search' %}">
 
@@ -33,10 +34,6 @@
             </label>
         </form>
         <br>
-        <a href="{% url 'myorders' %}" class="float-right btn btn-dark">my orders</a>
-        <br>
-        <br>
-        <a href="{% url 'cart' %}" class="float-right btn btn-dark">cart </a>
         {% for product in products%}
         <a href="{% url 'product_detail' product.pk %}">
             <img src="{{product.thumbnail.url}}" width='200' height='200' alt="">
@@ -49,16 +46,6 @@
         <br>
         <hr>
         {% endfor %}
-    </div>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
-    </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
-    </script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
-    </script>
 </body>
 
 </html>

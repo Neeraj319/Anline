@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container">
+        <a href="/seller">home</a>
+        <br>
+        <br>
+        <hr>
+        <img src="{{product_details.product.thumbnail.url}}" width='200' height='200' alt="">
+        <br>
+        <h1>{{product_details.product.name}}</h1>
+        <p>
+            {{product_details.product.description}}
+        </p>
+        @NRS {{product_details.product.price}}
+        <br>
+        <hr>
+        place to deliver:
+        <p>
+            {{product_details.user.buyer.address}}
+        </p>
+        <hr>
+        <h3>
+            status
+        </h3>
+        {% if product_details.ProductDilivered %}
+        <button class='btn btn-primary'>Product Dilivered </button>
+        {% elif product_details.ProductShipeed %}
+        <button class='btn btn-primary'>Product Shipeed</button>
+        {% elif product_details.ProductPackaged %}
+        <button class='btn btn-primary'>Product Packaged</button>
+        {% else %}
+        <button class='btn btn-primary'>Product order received</button>
+        {% endif %}
+        <br>
+
+        <form method='POST'>
+            <h1>
+                Change Product Status
+            </h1>
+            {% csrf_token %}
+            {% if not product_details.ProductPackaged %}
+            <input type="radio" name="Product_Packaged" value="Product_Packaged">Product Packed<br>
+            <br>
+            <button class='btn btn-dark'>change status</button>
+            {% elif not product_details.ProductShipeed %}
+            <input type="radio" name="Product_Shipeed" value="Product_Shipeed">Product Shipped<br>
+            <br>
+            <button class='btn btn-dark'>change status</button>
+            {% elif not product_details.ProductDilivered %}
+            <input type="radio" name="Product_Dilivered" value="Product_Dilivered">Product Delivered<br>
+            <br>
+            <button class='btn btn-dark'>change status</button>
+            {% else %}
+            product delivered
+
+            {% endif %}
+
+        </form>
+        </form>
+        <hr>
+    </div>
+</body>
+
+</html>
