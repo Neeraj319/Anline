@@ -18,6 +18,9 @@
         <br>
 
         <a href="{% url 'ShowAllProducts' %}" class='btn btn-primary float-right'>Your Items</a>
+        <br>
+        <br>
+        <a href="{% url 'add_product' %}" class='btn btn-dark float-right'>Add products</a>
         {% for product in Product%}
         <a href="{% url 'SellerProductDetail' product.pk %}">
             <img src="{{product.product.thumbnail.url}}" width='200' height='200'>

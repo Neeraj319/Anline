@@ -4,6 +4,7 @@ from django.shortcuts import get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .models import an_type
+from Auth_users.models import Buyer
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView
 from django.core.mail import send_mail
@@ -33,7 +34,7 @@ def product_detail(request, pk):
     more_product_images = ProductImage.objects.filter(product=product)
     try:
 
-        cart = Cart.objects.get(cart_product=product, user=request.user)
+        cart = Cart.objects.get(cart_product=product, user=request.user.buyer)
     except:
         cart = {
             'cart_product': False
@@ -90,8 +91,8 @@ def buy_product(request, pk):
         if request.method == "POST":
             ProductsToDeliver.objects.create(
                 product=product, user=request.user.buyer)
-            # send_mail('order came from ' + str(request.user.buyer), 'an order from ' + str(request.user.buyer) + 'has come' + product.name + '\nproduct url - http://127.0.0.1:8000/detail/' + str(product.pk), user_email,  [
-            #     'itskop520@gmail.com'])
+            send_mail('order came from ' + str(request.user.buyer), 'an order from ' + str(request.user.buyer) + 'has come' + product.name + '\nproduct url - http://127.0.0.1:8000/detail/' + str(product.pk), user_email,  [
+                'itskop520@gmail.com'])
 
             messages.success(request, 'item order sucessflly')
         context = {

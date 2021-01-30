@@ -27,6 +27,9 @@
         <p>
             {{product.description}}@{{product.price}}
         </p>
+        {% if request.user.buyer %}
+
+
         {% if cart.cart_product %}
         item already in cart
         {% else %}
@@ -36,8 +39,14 @@
                 add to cart
             </button>
         </form>
-        {% endif %}
         <a href="{% url 'buy' product.pk %}">buy</a>
+        {% endif %}
+        {% else %}
+        <a href="{% url 'DeleteProduct' product.pk  %}">delete product</a>
+        <br>
+        <a href="{% url 'EditProduct' product.pk %}">edit product</a>
+        {% endif %}
+
         <h1>more images</h1>
         {% if more_images %}
         {% for images in more_images %}
