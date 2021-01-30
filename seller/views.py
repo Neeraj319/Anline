@@ -36,6 +36,7 @@ def SellerProductDetail(request, pk):
         product_details = ProductsToDeliver.objects.get(pk=pk)
         a = Buyer.objects.get(pk=product_details.user.pk)
         buyers_email = a.user.email
+        address = a.user.buyer.address
         if request.method == 'POST':
             value_of_Product_Packaged = request.POST.get('Product_Packaged')
             value_of_Product_Shipeed = request.POST.get('Product_Shipeed')
@@ -59,7 +60,8 @@ def SellerProductDetail(request, pk):
                     buyers_email])
                 return redirect('SellersHome')
         context = {
-            'product_details': product_details
+            'product_details': product_details,
+            'address': address
         }
     return render(request, 'SellerProduct.html', context)
 
@@ -137,7 +139,8 @@ def edit_product(request, pk):
             product.name = name
             product.price = float(price)
             product.description = ProductDescription
-            product.thumbnail = img
+            if img:
+                product.thumbnail = img
             product.product_type = query
             product.save()
             return redirect('ShowAllProducts')
