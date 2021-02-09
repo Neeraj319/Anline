@@ -44,7 +44,7 @@ def SellerProductDetail(request, pk):
             if value_of_Product_Packaged:
                 product_details.ProductPackaged = True
                 product_details.save()
-                send_mail('your order has been pacaked', 'dear coustomer your order has been packed ' + product_details.product.name, 'itskop520@gmail.com',  [
+                send_mail('your order has been packed', 'dear coustomer your order has been packed ' + product_details.product.name, 'itskop520@gmail.com',  [
                     buyers_email])
                 return redirect('SellersHome')
             elif value_of_Product_Shipeed:

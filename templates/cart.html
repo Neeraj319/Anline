@@ -1,39 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <title>Document</title>
-</head>
-
-<body>
-    <a href="{% url 'home' %}">home</a>
-
-    <div class="container">
-        <h1>
-            My cart
-        </h1>
-        <br>
-        {% for cart in cart_list %}
-        <a href="{% url 'product_detail' cart.cart_product.pk %}">
-            <h1>{{cart}}</h1>
-            <form method="POST">
+{% extends 'base.html' %}
+{% block head %}
+<title>my cart</title>
+{% endblock %}
+{% block body %}
+<div class="container">
+    <div class="jumbotron">
+    <center><h1>
+        My Cart
+    </h1></center>
+    {% for cart in cart_list %}
+        
+        <div class="row justify-content-between align-content-center align-items-center">
+        <div class="col-4">
+        <a style = 'text-decoration:none' href="{% url 'product_detail' cart.cart_product.pk %}">
+        <h1 class = 'text-danger'>{{cart}}</h1>
+        <img src="{{cart.cart_product.thumbnail.url}}" width='200' height='200' alt=""></a></div>
+        <div class="col-4">
+         <form method="POST">
                 {% csrf_token %}
-                <br>
                 <input type='hidden' value='{{cart.pk}}' name='cart_item'>
-                <button class='btn btn-primary'>delte this item from your cart</button>
+                <button class='btn btn-primary float-right'>delte this item from your cart</button>
             </form>
-
-            <img src="{{cart.cart_product.thumbnail.url}}" width='200' height='200' alt="">
-            <br>
-        </a>
+        </div>
+        
+        </div>
+        
         <hr>
         {% endfor %}
-    </div>
-
-</body>
-
-</html>
+</div>
+</div>
+{% endblock %}

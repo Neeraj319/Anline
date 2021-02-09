@@ -1,33 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <title>Document</title>
-</head>
-
-<body>
-    <div class="container">
-        <a href="{% url 'home' %}">home</a>
-        <br>
-        {% if messages %}
-        <ul class="messages">
-            {% for message in messages %}
-            <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
-                {% endfor %}
-        </ul>
-        {% endif %}
-        <img src="{{product.thumbnail.url}}" width='200' height='200' alt="">
-        <br>
-        <h1>{{product.name}}</h1>
-
-        <p>
-            {{product.description}}@{{product.price}}
-        </p>
-        {% if request.user.buyer %}
+{% extends 'base.html' %}
+{% block head %}
+<title>{{product.name}}</title>
+{% endblock %}
+{% block body %}
+<div class="container">
+    <div class="jumbotron">
+    <br>
+    <br>
+    <h1>
+    <center>{{product.name}}</center>
+    </h1>
+    <img src="{{product.thumbnail.url}}" alt="">
+    <br>
+    <p class = 'float-auto'>
+    <h3 class='text-success'>RS : {{product.price}}</h3>
+        {{product.description}}
+    </p>
+    {% if request.user.buyer %}
 
 
         {% if cart.cart_product %}
@@ -39,26 +28,47 @@
                 add to cart
             </button>
         </form>
-        <a href="{% url 'buy' product.pk %}">buy</a>
+        <br>
+        
         {% endif %}
+
+        <a href="{% url 'buy' product.pk %}" class = 'btn btn-dark'>buy</a>
         {% else %}
         <a href="{% url 'DeleteProduct' product.pk  %}">delete product</a>
         <br>
         <a href="{% url 'EditProduct' product.pk %}">edit product</a>
         {% endif %}
 
-        <h1>more images</h1>
+        
         {% if more_images %}
+        <h1 class = 'text-danger'>more images</h1>
         {% for images in more_images %}
-        <img src="{{images.pictures.url}}" width='200' height='200' alt="">
+        <img  src="{{images.pictures.url}}" alt="">
         {% endfor %}
         {% else %}
         <h1>
-            no more images
         </h1>
         {% endif %}
 
     </div>
-</body>
-
-</html>
+    <h1>
+        Related Items
+    </h1>
+    <br>
+    <div class="card-group">
+    {% for product in more_products %}
+ <div class="card">
+    <center>
+    <img class="rounded-circle" src='{{product.thumbnail.url}}' alt="Card image cap" height ='150' width ='150'>
+    </center>
+    <div class="card-body">
+      <h5 class="card-title">{{product.name}}</h5>
+      <p class="card-text">{{product.description}}</p>
+      <p class="card-text"><small class="text-muted"><a class="btn btn-secondary" href="{% url 'product_detail' product.pk %}"" role="button">View details &raquo;</a></small></p>
+    </div>
+  </div>
+  {% endfor %}
+  
+</div>
+</div>
+{% endblock %}

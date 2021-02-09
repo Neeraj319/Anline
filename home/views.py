@@ -32,16 +32,20 @@ def product_detail(request, pk):
         messages.success(request, 'item added to cartsucessfully')
 
     more_product_images = ProductImage.objects.filter(product=product)
+    more_products = Product.objects.filter(product_type=product.product_type)
+    print(more_products)
     try:
 
         cart = Cart.objects.get(cart_product=product, user=request.user.buyer)
     except:
         cart = {
             'cart_product': False
+
         }
     print(cart)
     context = {'product': product, 'cart': cart,
-               'more_images': more_product_images}
+               'more_images': more_product_images,
+               'more_products': more_products[0:3]}
     return render(request, 'detail_product.html', context)
 
 
@@ -95,8 +99,11 @@ def buy_product(request, pk):
                 'itskop520@gmail.com'])
 
             messages.success(request, 'item order sucessflly')
+            return redirect('buy', product.pk)
+        extra_charge = 50.50 + product.price
         context = {
-            'product': product
+            'product': product,
+            'charge': extra_charge
         }
     return render(request, 'buy.html', context)
 

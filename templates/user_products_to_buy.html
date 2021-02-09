@@ -1,4 +1,36 @@
-<!DOCTYPE html>
+{% extends 'base.html' %}
+{% block head %}
+<title>My Orders</title>
+{% endblock %}
+{% block body %}
+<div class="container">
+<div class="jumbotron">
+    <h1>
+            Your Orders
+        </h1>
+    {% for product in Product %}
+        <a href="{% url 'product_detail' product.product.pk %}">
+            <br>
+            <img src="{{product.product.thumbnail.url}}" alt="" height='200' width='200'>
+            <h1>
+                {{product.product}}
+            </h1>
+        </a>
+        {% if product.ProductDilivered %}
+        <button class='btn btn-primary'>ProductDilivered </button>
+        {% elif product.ProductShipeed %}
+        <button class='btn btn-primary'>ProductShipeed</button>
+        {% elif product.ProductPackaged %}
+        <button class='btn btn-primary'>ProductPackaged</button>
+        {% else %}
+        <button class='btn btn-primary'>Product order received</button>
+        {% endif %}
+        <hr>
+        {% endfor %}
+</div>
+</div>
+{% endblock %}
+{% comment %} <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -37,4 +69,4 @@
     </div>
 </body>
 
-</html>
+</html> {% endcomment %}
