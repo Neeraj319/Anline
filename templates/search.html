@@ -1,29 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <title>Document</title>
-</head>
-
-<body>
-    <div class="container">
-        <a href="{% url 'home' %}">home</a>
-        <br>
-        <hr>
+{% extends 'base.html' %}
+{% block head %}
+<title>search</title>
+{% endblock %}
+{% block body %}
+<div class="container">
+    <div class="jumbotron">
         {% if result %}
+        <h2 class='text-danger'>
+            All search results related to {{query}}
+        </h2>
+        <br>
         {% for product in result %}
         <a href="{% url 'product_detail' product.pk %}">
-            <img src="{{product.thumbnail.url}}" width='200' height='200' alt="">
+            <img src="{{product.thumbnail.url}}">
             <br>
-            <h1>{{product.name}}</h1>
+            <h3 class='text-dark'>{{product.name}}</h3>
 
         </a>
-        @
-        {{product.price}}
         <br>
         <hr>
         {% endfor %}
@@ -32,7 +25,8 @@
             no search results
         </h1>
         {% endif %}
-    </div>
-</body>
 
-</html>
+    </div>
+</div>
+
+{% endblock %}

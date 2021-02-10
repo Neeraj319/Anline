@@ -71,16 +71,22 @@ def search(request):
 
     if request.method == "GET":
         query = request.GET.get('query')
-        serach_result = Product.objects.filter(name__icontains=query)
-        context = {
-            'result': serach_result
-        }
-    if request.method == "POST":
-        query = request.POST.get('filter')
+        search_query = request.GET.get('search-query')
         serach_result = Product.objects.filter(product_type__icontains=query)
+        normal_serach = serach_result.filter(name__icontains=search_query)
         context = {
-            'result': serach_result
+            'result': normal_serach,
+            'query': query
         }
+
+    # if request.method == "POST":
+    #     query = request.POST.get('filter')
+    #     serach_result = Product.objects.filter(product_type__icontains=query)
+    #     context = {
+    #         'result': serach_result,
+    #         'query': query
+
+    #     }
     return render(request, 'search.html', context)
 
 
@@ -117,7 +123,7 @@ def User_Ordered_Product(request):
             context = {
                 'Product': Product
             }
-    except:
 
+    except:
         return redirect('SellersHome')
     return render(request, 'user_products_to_buy.html', context)

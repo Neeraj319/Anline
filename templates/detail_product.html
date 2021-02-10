@@ -33,7 +33,9 @@
         {% endif %}
 
         <a href="{% url 'buy' product.pk %}" class = 'btn btn-dark'>buy</a>
-        {% else %}
+        {% elif request.user.is_anonymous %}
+        <a href="{% url 'buy' product.pk %}" class = 'btn btn-dark'>buy</a>
+        {% elif request.user.seller %}
         <a href="{% url 'DeleteProduct' product.pk  %}">delete product</a>
         <br>
         <a href="{% url 'EditProduct' product.pk %}">edit product</a>
@@ -63,7 +65,7 @@
     </center>
     <div class="card-body">
       <h5 class="card-title">{{product.name}}</h5>
-      <p class="card-text">{{product.description}}</p>
+      <p class="card-text des">{{product.description}}</p>
       <p class="card-text"><small class="text-muted"><a class="btn btn-secondary" href="{% url 'product_detail' product.pk %}"" role="button">View details &raquo;</a></small></p>
     </div>
   </div>
@@ -71,4 +73,20 @@
   
 </div>
 </div>
+<script>
+  function my_func() {
+
+    const x = document.getElementsByClassName('des');
+    for (let en of x) {
+      if (en.textContent.length <= 70) {
+
+      } else {
+        var sliced_string = en.textContent.slice(0, 80);
+        en.textContent = sliced_string + '.....';
+      }
+    }
+  }
+
+  my_func();
+</script>
 {% endblock %}

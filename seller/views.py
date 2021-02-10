@@ -12,6 +12,7 @@ from django.contrib import messages
 from home.models import an_type
 
 
+@login_required
 def ViewAllProduct(request):
     Product = ProductsToDeliver.objects.filter(ProductDilivered=False)
 
@@ -20,10 +21,11 @@ def ViewAllProduct(request):
             print(request.user.buyer)
             return redirect('home')
     except:
+
         context = {
             'Product': Product
         }
-        print('hi')
+
     return render(request, 'home.html', context)
 
 
