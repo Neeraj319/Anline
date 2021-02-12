@@ -1,36 +1,45 @@
 {% extends 'base.html' %}
 {% block head %}
-    <title>
-        register
-    </title>
+<title>
+    register
+</title>
 {% endblock %}
 {% block body %}
-    <div class="container">
+<div class="container">
     <div class="jumbotron">
-    <h3 class='text-dark'>
-        <center>
-        Register
-        </center>
-    </h3>
-    <form method='POST'>
-    {% csrf_token %}
-    <input class='form-control' type="text" name ='first_name' placeholder='first name'>
-    <br>
-    <input class = 'form-control' type="text" name='last_name' placeholder='last name'>
-    <br>
-    <input type="text" name ='username' class='form-control' placeholder='user name'>
-    <br>
-    <input type="email" name = 'email' class ='form-control' placeholder = 'email'>
-    <br>
-    <input type='password' name = 'password1' class = 'form-control' placeholder = 'password'>
-    <br>
-    <input type="password" name = 'password2' class = 'form-control' placeholder='password again'>
-    <br>
-    <input type="text" name = 'address' class = 'form-control' placeholder='your address here'>
-    <br>
-    <button class='btn btn-dark btn-lg btn-block'>Register</button>
-    </form>
+        <h3 class='text-dark'>
+            <center>
+                Register
+            </center>
+        </h3>
+        <form method='POST'>
+            {% csrf_token %}
+            <input class='form-control' type="text" name='first_name' placeholder='first name'>
+            <br>
+            <input class='form-control' type="text" name='last_name' placeholder='last name'>
+            <br>
+            <input type="text" name='username' class='form-control' placeholder='user name'>
+            <br>
+            <input type="email" name='email' class='form-control' placeholder='email'>
+            <br>
+            <input type='password' name='password1' class='form-control' placeholder='password'>
+            <br>
+            <input type="password" name='password2' class='form-control' placeholder='password again'>
+            <br>
+            <input type="text" name='address' class='form-control' placeholder='your address here'>
+            <br>
+            <button class='btn btn-dark btn-lg btn-block'>Register</button>
+        </form>
+        {% if messages %}
+        <ul class="messages mt-5">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }} alert-error" {% endif %}>
+                {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}{% endif %}
+                {{ message }}
+                </li>
+                {% endfor %}
+        </ul>
+        {% endif %}
     </div>
-    </div>
+</div>
 {% endblock body %}
-

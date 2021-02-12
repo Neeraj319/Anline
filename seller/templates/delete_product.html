@@ -1,27 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <title>Document</title>
 </head>
+
 <body>
     <div class='container'>
-    <a href="{% url 'ShowAllProducts' %}">
-        back
-    </a>
-    <h1>
-        are you sure you want to delete {{product}}
-    </h1>
-    <form method="POST">
-    {% csrf_token %}
-    <br>
-        <button class = 'btn-success btn-lg btn-block'>
-        confirm
-        </button>
-    </form>
+        <a href="{% url 'ShowAllProducts' %}">
+            back
+        </a>
+        <h1>
+            are you sure you want to delete {{product}}
+        </h1>
+        <form method="POST">
+            {% csrf_token %}
+            <br>
+            <button class='btn-success btn-lg btn-block'>
+                confirm
+            </button>
+        </form>
     </div>
 </body>
+
 </html>

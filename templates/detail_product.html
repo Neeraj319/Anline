@@ -4,74 +4,75 @@
 {% endblock %}
 {% block body %}
 <div class="container">
-    <div class="jumbotron">
+  <div class="jumbotron">
     <br>
     <br>
     <h1>
-    <center>{{product.name}}</center>
+      <center>{{product.name}}</center>
     </h1>
     <img src="{{product.thumbnail.url}}" alt="">
     <br>
-    <p class = 'float-auto'>
-    <h3 class='text-success'>RS : {{product.price}}</h3>
-        {{product.description}}
+    <p class='float-auto'>
+      <h3 class='text-success'>RS : {{product.price}}</h3>
+      {{product.description}}
     </p>
     {% if request.user.buyer %}
 
 
-        {% if cart.cart_product %}
-        item already in cart
-        {% else %}
-        <form method="POST">
-            {% csrf_token %}
-            <button class='btn btn-primary'>
-                add to cart
-            </button>
-        </form>
-        <br>
-        
-        {% endif %}
-
-        <a href="{% url 'buy' product.pk %}" class = 'btn btn-dark'>buy</a>
-        {% elif request.user.is_anonymous %}
-        <a href="{% url 'buy' product.pk %}" class = 'btn btn-dark'>buy</a>
-        {% elif request.user.seller %}
-        <a href="{% url 'DeleteProduct' product.pk  %}">delete product</a>
-        <br>
-        <a href="{% url 'EditProduct' product.pk %}">edit product</a>
-        {% endif %}
-
-        
-        {% if more_images %}
-        <h1 class = 'text-danger'>more images</h1>
-        {% for images in more_images %}
-        <img  src="{{images.pictures.url}}" alt="">
-        {% endfor %}
-        {% else %}
-        <h1>
-        </h1>
-        {% endif %}
-
-    </div>
-    <h1>
-        Related Items
-    </h1>
+    {% if cart.cart_product %}
+    item already in cart
+    {% else %}
+    <form method="POST">
+      {% csrf_token %}
+      <button class='btn btn-primary'>
+        add to cart
+      </button>
+    </form>
     <br>
-    <div class="card-group">
-    {% for product in more_products %}
- <div class="card">
-    <center>
-    <img class="rounded-circle" src='{{product.thumbnail.url}}' alt="Card image cap" height ='150' width ='150'>
-    </center>
-    <div class="card-body">
-      <h5 class="card-title">{{product.name}}</h5>
-      <p class="card-text des">{{product.description}}</p>
-      <p class="card-text"><small class="text-muted"><a class="btn btn-secondary" href="{% url 'product_detail' product.pk %}"" role="button">View details &raquo;</a></small></p>
-    </div>
+
+    {% endif %}
+
+    <a href="{% url 'buy' product.pk %}" class='btn btn-dark'>buy</a>
+    {% elif request.user.is_anonymous %}
+    <a href="{% url 'buy' product.pk %}" class='btn btn-dark'>buy</a>
+    {% elif request.user.seller %}
+    <a href="{% url 'DeleteProduct' product.pk  %}">delete product</a>
+    <br>
+    <a href="{% url 'EditProduct' product.pk %}">edit product</a>
+    {% endif %}
+
+
+    {% if more_images %}
+    <h1 class='text-danger'>more images</h1>
+    {% for images in more_images %}
+    <img src="{{images.pictures.url}}" alt="">
+    {% endfor %}
+    {% else %}
+    <h1>
+    </h1>
+    {% endif %}
+
   </div>
-  {% endfor %}
-  
-</div>
+  <h1>
+    Related Items
+  </h1>
+  <br>
+  <div class="card-group">
+    {% for product in more_products %}
+    <div class="card">
+      <center>
+        <img class="rounded-circle" src='{{product.thumbnail.url}}' alt="Card image cap" height='150' width='150'>
+      </center>
+      <div class="card-body">
+        <h5 class="card-title">{{product.name}}</h5>
+        <p class="card-text des">{{product.description}}</p>
+        <p class="card-text"><small class="text-muted"><a class="btn btn-secondary"
+              href="{% url 'product_detail' product.pk %}"" role=" button">View details &raquo;</a></small></p>
+      </div>
+    </div>
+    {% endfor %}
+
+  </div>
 </div>
 <script>
   function my_func() {

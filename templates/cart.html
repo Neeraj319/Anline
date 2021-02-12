@@ -5,28 +5,31 @@
 {% block body %}
 <div class="container">
     <div class="jumbotron">
-    <center><h1>
-        My Cart
-    </h1></center>
-    {% for cart in cart_list %}
-        
+        <center>
+            <h1>
+                My Cart
+            </h1>
+        </center>
+        {% for cart in cart_list %}
+
         <div class="row justify-content-between align-content-center align-items-center">
-        <div class="col-4">
-        <a style = 'text-decoration:none' href="{% url 'product_detail' cart.cart_product.pk %}">
-        <h1 class = 'text-danger'>{{cart}}</h1>
-        <img src="{{cart.cart_product.thumbnail.url}}" width='200' height='200' alt=""></a></div>
-        <div class="col-4">
-         <form method="POST">
-                {% csrf_token %}
-                <input type='hidden' value='{{cart.pk}}' name='cart_item'>
-                <button class='btn btn-primary float-right'>delte this item from your cart</button>
-            </form>
+            <div class="col-4">
+                <a style='text-decoration:none' href="{% url 'product_detail' cart.cart_product.pk %}">
+                    <h1 class='text-danger'>{{cart}}</h1>
+                    <img src="{{cart.cart_product.thumbnail.url}}" width='200' height='200' alt="">
+                </a></div>
+            <div class="col-4">
+                <form method="POST">
+                    {% csrf_token %}
+                    <input type='hidden' value='{{cart.pk}}' name='cart_item'>
+                    <button class='btn btn-primary float-right'>delte this item from your cart</button>
+                </form>
+            </div>
+
         </div>
-        
-        </div>
-        
+
         <hr>
         {% endfor %}
-</div>
+    </div>
 </div>
 {% endblock %}

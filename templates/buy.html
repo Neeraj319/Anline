@@ -5,20 +5,20 @@
 {% block body %}
 <div class="container">
     <div class="jumbotron">
-    <h1 class= 'text-danger'>
-        Are you sure you want to buy {{product.name}}?
-    </h1>
-    <h2>
-    <p>
-        note : no online payment aviable but will be soon 
+        <h1 class='text-danger'>
+            Are you sure you want to buy {{product.name}}?
+        </h1>
+        <h2>
+            <p>
+                note : no online payment aviable but will be soon
+                <br>
+
+            </p>
+        </h2>
+        your total charge will be : RS {{charge}} with delivery charge
         <br>
-        
-    </p>
-    </h2>
-    your total charge will be : RS {{charge}} with delivery charge 
-    <br>
-    <br>
-    <form method="post">
+        <br>
+        <form method="post">
             {% csrf_token %}
             <button class='btn btn-dark btn-lg btn-block'>confirm order</button>
         </form>
