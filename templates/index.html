@@ -59,7 +59,7 @@
     <!-- Three columns of text below the carousel -->
 
     {% for product in products %}
-    <div class="card col-4 ">
+    <div class="card col-lg-4 ">
       <div class="card-body">
         <a class='text-dark' style="text-decoration:none" href="{% url 'product_detail' product.pk %}"><img
             class="rounded-circle" src='{{product.thumbnail.url}}' alt="Generic placeholder image" width="140"
