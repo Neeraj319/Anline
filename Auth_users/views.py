@@ -34,24 +34,29 @@ def register_user(request):
         password = request.POST.get('password1')
         password2 = request.POST.get('password2')
         address = request.POST.get('address')
-        if User.objects.filter(username=username).exists():
-            messages.error(request, 'username already exists')
-        elif User.objects.filter(email = email).exists():
-            messages.error(request, 'eamil already exists')
-        elif (len(password) and len(password2)) <= 7:
-            messages.error(request, 'password is too short')
-        elif password != password2:
-            messages.error(request, 'first password did not matched with another')
+        if (first_name or last_name or username or email or password or password2 or address) == '':
+            messages.error(request, 'fields cant be empty')
+            return redirect('register')
         else:
-            First_name = first_name.capitalize()
-            Last_name = last_name.capitalize()
-            user = User.objects.create_user(
-                    username=username, password=password2, first_name=First_name, last_name=Last_name, email=email)
-            user.save()
-            Buyer.objects.create(user = user , address=address)
-            user = authenticate(username=username, password=password)
-            login(request, user)
-            return redirect('home')
+            if User.objects.filter(username=username).exists():
+                messages.error(request, 'username already exists')
+            elif User.objects.filter(email = email).exists():
+                messages.error(request, 'eamil already exists')
+            elif (len(password) and len(password2)) <= 7:
+                messages.error(request, 'password is too short')
+            elif password != password2:
+                messages.error(request, 'first password did not matched with another')
+            else:
+                First_name = first_name.capitalize()
+                Last_name = last_name.capitalize()
+                user = User.objects.create_user(
+                        username=username, password=password2, first_name=First_name, last_name=Last_name, email=email)
+                user.save()
+                Buyer.objects.create(user = user , address=address)
+                user = authenticate(username=username, password=password)
+                login(request, user)
+                return redirect('home')
+            
     return render(request , 'register.html')
 
 
