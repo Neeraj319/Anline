@@ -7,6 +7,7 @@ class Buyer(models.Model):
     user = models.OneToOneField(
         User, on_delete=models.CASCADE)
     address = models.TextField()
+    phone = models.IntegerField(null=True)
 
     def __str__(self):
         return f'{self.user}'

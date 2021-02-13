@@ -127,3 +127,28 @@ def User_Ordered_Product(request):
     except:
         return redirect('SellersHome')
     return render(request, 'user_products_to_buy.html', context)
+
+
+@login_required
+def profile(request, user_name):
+    buyer = Buyer.objects.get(user = request.user)
+    if buyer == request.user.buyer:
+        if request.method =="POST":
+            address = request.POST.get('address')
+            phone = request.POST.get("phone")
+            if (address or phone) == '':
+                messages.error(request , 'fileds cant be empty')
+                return redirect('profile' , request.user.buyer)
+            else:
+                buyer.phone = phone
+                buyer.address = address
+                buyer.save()
+                messages.success(request , 'changes saved sucessfully')
+                return redirect('profile' , request.user.buyer)
+
+        context = {
+            'profle' : buyer
+        }
+    else:
+        return redirect('home')
+    return render(request , 'profile.html' , context)

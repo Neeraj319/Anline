@@ -9,9 +9,9 @@
             Your Orders
         </h1>
         {% for product in Product %}
-        <a href="{% url 'product_detail' product.product.pk %}">
+        <a  href="{% url 'product_detail' product.product.pk %}">
             <br>
-            <img src="{{product.product.thumbnail.url}}" alt="" height='200' width='200'>
+            <img class='img-rounded' src="{{product.product.thumbnail.url}}" alt="" height='200' width='200'>
             <h1>
                 {{product.product}}
             </h1>
@@ -30,44 +30,3 @@
     </div>
 </div>
 {% endblock %}
-{% comment %}
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=\, initial-scale=1.0">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <title>Document</title>
-</head>
-
-<body>
-    <div class="container">
-        <a href="{% url 'home' %}">home</a>
-        <h1>
-            Your Orders
-        </h1>
-        {% for product in Product %}
-        <a href="{% url 'product_detail' product.product.pk %}">
-            <br>
-            <img src="{{product.product.thumbnail.url}}" alt="" height='200' width='200'>
-            <h1>
-                {{product.product}}
-            </h1>
-        </a>
-        {% if product.ProductDilivered %}
-        <button class='btn btn-primary'>ProductDilivered </button>
-        {% elif product.ProductShipeed %}
-        <button class='btn btn-primary'>ProductShipeed</button>
-        {% elif product.ProductPackaged %}
-        <button class='btn btn-primary'>ProductPackaged</button>
-        {% else %}
-        <button class='btn btn-primary'>Product order received</button>
-        {% endif %}
-        <hr>
-        {% endfor %}
-    </div>
-</body>
-
-</html> {% endcomment %}

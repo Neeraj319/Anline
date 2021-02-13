@@ -30,6 +30,9 @@
           </li>
           {% else %}
           <li class="nav-item">
+            <a class="nav-link" href="{% url 'profile' request.user %}">My Profile</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="{% url 'cart' %}">My Cart</a>
           </li>
           <li class="nav-item">
