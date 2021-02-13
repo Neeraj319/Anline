@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, HttpResponse, Http404
+from django.shortcuts import render, redirect, HttpResponse, Http404 , HttpResponseRedirect
 from .models import Product, Cart, ProductImage
 from django.shortcuts import get_object_or_404
 from django.contrib import messages
@@ -9,10 +9,12 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView
 from django.core.mail import send_mail
 from seller.models import ProductsToDeliver
+from product_review.models import PorductReview
 # Create your views here.
 
 
 def home(request):
+    # print(request.META.get('HTTP_REFERER') , 'helllo')
     try:
         if request.user.seller:
             return redirect('SellersHome')
@@ -24,6 +26,7 @@ def home(request):
 
 def product_detail(request, pk):
     product = Product.objects.get(pk=pk)
+    product_review = PorductReview.objects.filter(product=product)
     if request.method == 'POST':
         if request.user.is_anonymous:
             return redirect('login')
@@ -45,7 +48,9 @@ def product_detail(request, pk):
     print(cart)
     context = {'product': product, 'cart': cart,
                'more_images': more_product_images,
-               'more_products': more_products[0:3]}
+               'more_products': more_products[0:3],
+               'product_review' : product_review
+               }
     return render(request, 'detail_product.html', context)
 
 
@@ -152,3 +157,14 @@ def profile(request, user_name):
     else:
         return redirect('home')
     return render(request , 'profile.html' , context)
+@login_required
+def product_review(request , pk):
+    if request.method == "POST":
+        review = request.POST.get('review')
+        product = Product.objects.get(pk =pk)
+        PorductReview.objects.create(user = request.user.buyer , product = product , review = review)
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    context = {
+        'product' : product
+    }
+    return render(request , 'detail_product.html' , context)
