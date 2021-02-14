@@ -34,7 +34,8 @@ def register_user(request):
         password = request.POST.get('password1')
         password2 = request.POST.get('password2')
         address = request.POST.get('address')
-        if (first_name or last_name or username or email or password or password2 or address) == '':
+        phone = request.POST.get('phone')
+        if (first_name or last_name or username or email or phone or password or password2 or address) == '':
             messages.error(request, 'fields cant be empty')
             return redirect('register')
         else:
@@ -52,7 +53,7 @@ def register_user(request):
                 user = User.objects.create_user(
                         username=username, password=password2, first_name=First_name, last_name=Last_name, email=email)
                 user.save()
-                Buyer.objects.create(user = user , address=address)
+                Buyer.objects.create(user = user , phone=phone, address=address)
                 user = authenticate(username=username, password=password)
                 login(request, user)
                 return redirect('home')

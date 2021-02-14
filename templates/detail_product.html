@@ -52,29 +52,29 @@
     </h1>
     {% endif %}
     <h3>
-    Add a Product Review
+      Add a Product Review
     </h3>
-<form method="POST" action="{% url 'product_review' pk=product.pk %}">
-{% csrf_token %}
-    <input type="text" name="review" class = 'form-control'>
-    <br>
-    <button class = 'btn btn-danger btn-lg btn-block'>
-      add review
-    </button>
+    <form method="POST" action="{% url 'product_review' pk=product.pk %}">
+      {% csrf_token %}
+      <input type="text" name="review" class='form-control'>
+      <br>
+      <button class='btn btn-danger btn-lg btn-block'>
+        add review
+      </button>
     </form>
     <br>
     <h4>
       Product Reviews:
     </h4>
-  {% for review in product_review %}
-  <div class="border border-success col-lg-4">
-    <h4>{{review.user}}</h4>
-    <p>
-      {{review.review}}
-    </p>
-  </div>
-  <br>
-  {% endfor %}
+    {% for review in product_review %}
+    <div class="border border-success col-lg-4">
+      <h4>{{review.user}}</h4>
+      <p>
+        {{review.review}}
+      </p>
+    </div>
+    <br>
+    {% endfor %}
   </div>
   <h1>
     Related Items
@@ -94,7 +94,7 @@
       </div>
     </div>
     {% endfor %}
-    
+
   </div>
 </div>
 <script>
