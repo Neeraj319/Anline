@@ -1,54 +1,49 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
+{% block head %}
+<title>
+    All Products
+</title>
+{% endblock head %}
+{% block body %}
+<br>
+<br>
+<div class="container marketing">
+<br>
+  <div class="row">
+    <!-- Three columns of text below the carousel -->
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <title>Document</title>
-</head>
+    {% for product in products %}
+    <div class="card col-lg-4 ">
+      <div class="card-body">
+        <a class='text-dark' style="text-decoration:none" href="{% url 'product_detail' product.pk %}"><img
+            class="rounded-circle" src='{{product.thumbnail.url}}' alt="Generic placeholder image" width="140"
+            height="140">
+          <h3 class="card-title">{{product.name}}</h3>
+          <p class='card-text des'>{{product.description}}</p>
+          <p><a class="btn btn-secondary" href="{% url 'product_detail' product.pk %}"" role=" button">View details
+              &raquo;</a></p>
 
-<body>
-    <div class="container">
-        <a href="{% url 'SellersHome' %}">Home</a>
-        <br>
-        <h1>
-            Your Products
-        </h1>
-        {% for message in messages %}
-        <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
-            {% endfor %}
-            <form method="GET" action="{% url 'search' %}">
+        </a>
+      </div>
 
-                <input type=" text" name='query'>
-                <button class='btn btn-success'>search</button>
-            </form>
-            <br>
-            <form method="POST" action="{% url 'search' %}">
-                {% csrf_token %}
-                <label for="filter">filter by</label>
-                <select name="filter">
-                    {% for filter , _ in filters %}
-                    <option value="{{filter}}">{{filter}}</option>
-                    {% endfor %}
-                </select>
-                <button class='btn btn-success'>filter search</button>
-                </label>
-            </form>
-            <br>
-            {% for product in products%}
-            <a href="{% url 'product_detail' product.pk %}">
-                <img src="{{product.thumbnail.url}}" width='200' height='200' alt="">
-                <br>
-                <h1>{{product.name}}</h1>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+<script>
+  function my_func() {
 
-            </a>
-            @
-            {{product.price}}
-            <br>
-            <hr>
-            {% endfor %}
-</body>
+    const x = document.getElementsByClassName('des');
+    for (let en of x) {
+      if (en.textContent.length <= 70) {
 
-</html>
+      } else {
+        var sliced_string = en.textContent.slice(0, 80);
+        en.textContent = sliced_string + '.....';
+      }
+    }
+  }
+
+  my_func();
+</script>
+{% endblock body %}

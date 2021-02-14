@@ -1,36 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <title>Document</title>
-</head>
-
-<body>
+{% extends 'base.html' %}
+{% block head %}
+<title>
+    sellers' home
+</title>
+{% endblock head %}
+{% block body %}
     <div class='container'>
-
-        <h1>
-            Items to be delivered
-        </h1>
-        <br>
-
-        <a href="{% url 'ShowAllProducts' %}" class='btn btn-primary float-right'>Your Items</a>
-        <br>
-        <br>
-        <a href="{% url 'add_product' %}" class='btn btn-dark float-right'>Add products</a>
+    <div class="jumbotron">
+    <h3 class = 'text-success'>
+    <center>Items in quee to be delivered</center>
+        
+    </h3>
+    <br>
         {% for product in Product%}
         <a href="{% url 'SellerProductDetail' product.pk %}">
             <img src="{{product.product.thumbnail.url}}" width='200' height='200'>
             <br>
-            <h1>{{product.product.name}}
+            <h1 class = 'text-dark'>{{product.product.name}}
             </h1>
         </a>
         <hr>
         {% endfor %}
+        </div>
     </div>
-</body>
 
-</html>
+
+
+{% endblock body %}

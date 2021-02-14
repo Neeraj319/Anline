@@ -1,20 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
+{% block head %}
+<title>
+    add product
+</title>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=\, initial-scale=1.0">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <title>Document</title>
-</head>
+{% endblock head %}
+{% block body %}
+<br>
 
-<body>
     <div class="container">
-        <a href="{% url 'SellersHome' %}">Home</a>
-        <h1>
-            Add Product
-        </h1>
+    <br>
+    <br>
         <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             <label for="Product Name">Product Name</label>
@@ -35,6 +31,4 @@
             <button class='btn btn-secondary btn-lg btn-block'>add product</button>
         </form>
     </div>
-</body>
-
-</html>
+{% endblock body %}

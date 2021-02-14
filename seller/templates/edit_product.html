@@ -1,17 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
+{% block head %}
+<title>
+    edit product
+</title>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=\, initial-scale=1.0">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <title>Document</title>
-</head>
-
-<body>
+{% endblock head %}
+<br>
+<br>
+{% block body %}
+<br>
     <div class="container">
-        <a href="{% url 'SellersHome' %}">Home</a>
+    <br>
         <h1>
             edit product {{product}}
         </h1>
@@ -36,6 +35,4 @@
             <button class='btn btn-secondary btn-lg btn-block'>edit product</button>
         </form>
     </div>
-</body>
-
-</html>
+{% endblock %}

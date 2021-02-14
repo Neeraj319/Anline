@@ -37,6 +37,7 @@ def SellerProductDetail(request, pk):
     except:
         product_details = ProductsToDeliver.objects.get(pk=pk)
         a = Buyer.objects.get(pk=product_details.user.pk)
+        extra_charge = 50.50 + product_details.product.price
         buyers_email = a.user.email
         address = a.user.buyer.address
         if request.method == 'POST':
@@ -63,7 +64,8 @@ def SellerProductDetail(request, pk):
                 return redirect('SellersHome')
         context = {
             'product_details': product_details,
-            'address': address
+            'address': address,
+            'extra_charge' : extra_charge
         }
     return render(request, 'SellerProduct.html', context)
 

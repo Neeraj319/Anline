@@ -84,14 +84,6 @@ def search(request):
             'query': query
         }
 
-    # if request.method == "POST":
-    #     query = request.POST.get('filter')
-    #     serach_result = Product.objects.filter(product_type__icontains=query)
-    #     context = {
-    #         'result': serach_result,
-    #         'query': query
-
-    #     }
     return render(request, 'search.html', context)
 
 
