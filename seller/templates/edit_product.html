@@ -14,8 +14,11 @@
     <h1>
         edit product {{product}}
     </h1>
+    <img class='rounded-circle' src="{{product.thumbnail.url}}" alt="">
+    <br>
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
+
         <label for="Product Name">Product Name</label>
         <input type="text" value='{{product.name}}' class="form-control" name='ProductName'>
         <label for="Product Name">Product Price</label>
@@ -23,15 +26,8 @@
         <label for="Product Description">Product Description</label>
         <textarea class="form-control" name='ProductDescription' rows="7">{{product.description}}</textarea>
         <label for="Product Image">Product Thumbnail</label>
-        <input type="file" value='{{product.thumbnail.url}}' id="img" class='form-control' name="img"
-            accept="image/*" />
+        <input type="file" id="img" class='form-control' name="img" accept="image/*" />
         <br>
-        <label for="filter">Product Category</label>
-        <select name="ProductCategory">
-            {% for filter , _ in filters %}
-            <option value="{{filter}}">{{filter}}</option>
-            {% endfor %}
-        </select>
         <button class='btn btn-secondary btn-lg btn-block'>edit product</button>
     </form>
 </div>

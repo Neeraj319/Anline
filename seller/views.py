@@ -166,14 +166,12 @@ def edit_product(request, pk):
             price = request.POST.get('ProductPrice')
             ProductDescription = request.POST.get('ProductDescription')
             img = request.FILES.get('img')
-            query = request.POST.get('ProductCategory')
-            print(name, price, ProductDescription, img, query)
+            print(name, price, ProductDescription, img)
             product.name = name
             product.price = float(price)
             product.description = ProductDescription
             if img:
                 product.thumbnail = img
-            product.product_type = query
             product.save()
             return redirect('ShowAllProducts')
         context = {
