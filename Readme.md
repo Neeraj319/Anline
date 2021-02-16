@@ -5,6 +5,6 @@ _To use the website as seller you have to acess the admin panel_
 ***add your gmail and password to the file like this***
 ```
 email=your_email
-password=yourpassoword
+password=yourpassword
 ```
 & you are ready
