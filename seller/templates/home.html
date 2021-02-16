@@ -5,24 +5,24 @@
 </title>
 {% endblock head %}
 {% block body %}
-    <div class='container'>
+<div class='container'>
     <div class="jumbotron">
-    <h3 class = 'text-success'>
-    <center>Items in quee to be delivered</center>
-        
-    </h3>
-    <br>
+        <h3 class='text-success'>
+            <center>Items in quee to be delivered</center>
+
+        </h3>
+        <br>
         {% for product in Product%}
         <a href="{% url 'SellerProductDetail' product.pk %}">
             <img src="{{product.product.thumbnail.url}}" width='200' height='200'>
             <br>
-            <h1 class = 'text-dark'>{{product.product.name}}
+            <h1 class='text-dark'>{{product.product.name}}
             </h1>
         </a>
         <hr>
         {% endfor %}
-        </div>
     </div>
+</div>
 
 
 

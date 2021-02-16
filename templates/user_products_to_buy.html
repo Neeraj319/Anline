@@ -9,7 +9,7 @@
             Your Orders
         </h1>
         {% for product in Product %}
-        <a  href="{% url 'product_detail' product.product.pk %}">
+        <a href="{% url 'product_detail' product.product.pk %}">
             <br>
             <img class='img-rounded' src="{{product.product.thumbnail.url}}" alt="" height='200' width='200'>
             <h1>

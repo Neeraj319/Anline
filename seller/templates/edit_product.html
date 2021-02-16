@@ -9,30 +9,30 @@
 <br>
 {% block body %}
 <br>
-    <div class="container">
+<div class="container">
     <br>
-        <h1>
-            edit product {{product}}
-        </h1>
-        <form method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
-            <label for="Product Name">Product Name</label>
-            <input type="text" value='{{product.name}}' class="form-control" name='ProductName'>
-            <label for="Product Name">Product Price</label>
-            <input type="number" value='{{product.price}}' class="form-control" name='ProductPrice'>
-            <label for="Product Description">Product Description</label>
-            <textarea class="form-control" name='ProductDescription' rows="7">{{product.description}}</textarea>
-            <label for="Product Image">Product Thumbnail</label>
-            <input type="file" value='{{product.thumbnail.url}}' id="img" class='form-control' name="img"
-                accept="image/*" />
-            <br>
-            <label for="filter">Product Category</label>
-            <select name="ProductCategory">
-                {% for filter , _ in filters %}
-                <option value="{{filter}}">{{filter}}</option>
-                {% endfor %}
-            </select>
-            <button class='btn btn-secondary btn-lg btn-block'>edit product</button>
-        </form>
-    </div>
+    <h1>
+        edit product {{product}}
+    </h1>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="Product Name">Product Name</label>
+        <input type="text" value='{{product.name}}' class="form-control" name='ProductName'>
+        <label for="Product Name">Product Price</label>
+        <input type="number" value='{{product.price}}' class="form-control" name='ProductPrice'>
+        <label for="Product Description">Product Description</label>
+        <textarea class="form-control" name='ProductDescription' rows="7">{{product.description}}</textarea>
+        <label for="Product Image">Product Thumbnail</label>
+        <input type="file" value='{{product.thumbnail.url}}' id="img" class='form-control' name="img"
+            accept="image/*" />
+        <br>
+        <label for="filter">Product Category</label>
+        <select name="ProductCategory">
+            {% for filter , _ in filters %}
+            <option value="{{filter}}">{{filter}}</option>
+            {% endfor %}
+        </select>
+        <button class='btn btn-secondary btn-lg btn-block'>edit product</button>
+    </form>
+</div>
 {% endblock %}

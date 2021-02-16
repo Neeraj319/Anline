@@ -6,34 +6,34 @@
 {% endblock %}
 {% block body %}
 <div class="container">
-<div class="jumbotron">
-    <h3 class='text-danger'>
-        {{request.user.first_name}} {{request.user.last_name}}
-    </h3>
-    address : {{request.user.buyer.address}}
-    <br>
-    phone no : {{request.user.buyer.phone}}
-    <br>
-    email : {{request.user.email}}
-    <hr>
-    <h3>
-        Edit Your Details
-    </h3>
-    <form method="post">
-    {% csrf_token %}
-        <label for="edit your address">edit your address</label>
-        <input class = 'form-control' name = 'address' type="text">
-        <label for="edit your phone number">edit your phone number</label>
-        <input class = 'form-control' name = 'phone' type="number">
+    <div class="jumbotron">
+        <h3 class='text-danger'>
+            {{request.user.first_name}} {{request.user.last_name}}
+        </h3>
+        address : {{request.user.buyer.address}}
         <br>
-        <button class = 'btn btn-success btn-lg btn-block'>
-            save changes
-        </button>
-    </form>
-     {% for message in messages %}
+        phone no : {{request.user.buyer.phone}}
+        <br>
+        email : {{request.user.email}}
+        <hr>
+        <h3>
+            Edit Your Details
+        </h3>
+        <form method="post">
+            {% csrf_token %}
+            <label for="edit your address">edit your address</label>
+            <input class='form-control' name='address' type="text">
+            <label for="edit your phone number">edit your phone number</label>
+            <input class='form-control' name='phone' type="number">
+            <br>
+            <button class='btn btn-success btn-lg btn-block'>
+                save changes
+            </button>
+        </form>
+        {% for message in messages %}
         <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
             {% endfor %}
-</div>
+    </div>
 </div>
 </div>
 {% endblock %}

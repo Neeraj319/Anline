@@ -8,31 +8,31 @@
 {% block body %}
 <br>
 
-    <div class="container">
+<div class="container">
     <br>
     <br>
-        <form method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
-            <label for="Product Name">Product Name</label>
-            <input type="text" class="form-control" name='ProductName'>
-            <label for="Product Name">Product Price</label>
-            <input type="number" class="form-control" name='ProductPrice'>
-            <label for="Product Description">Product Description</label>
-            <textarea class="form-control" name='ProductDescription' rows="7"></textarea>
-            <label for="Product Image">Product Thumbnail</label>
-            <input type="file" id="img" class='form-control' name="img" accept="image/*" />
-            <label for="Product more Image">Product More Images</label>
-            <input type="file" id="img" class='form-control' name="img1" accept="image/*" />
-            <input type="file" id="img" class='form-control' name="img2" accept="image/*" />
-            <input type="file" id="img" class='form-control' name="img3" accept="image/*" />
-            <br>
-            <label for="filter">Product Category</label>
-            <select name="ProductCategory">
-                {% for filter , _ in filters %}
-                <option value="{{filter}}">{{filter}}</option>
-                {% endfor %}
-            </select>
-            <button class='btn btn-secondary btn-lg btn-block'>add product</button>
-        </form>
-    </div>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="Product Name">Product Name</label>
+        <input type="text" class="form-control" name='ProductName'>
+        <label for="Product Name">Product Price</label>
+        <input type="number" class="form-control" name='ProductPrice'>
+        <label for="Product Description">Product Description</label>
+        <textarea class="form-control" name='ProductDescription' rows="7"></textarea>
+        <label for="Product Image">Product Thumbnail</label>
+        <input type="file" id="img" class='form-control' name="img" accept="image/*" />
+        <label for="Product more Image">Product More Images</label>
+        <input type="file" id="img" class='form-control' name="img1" accept="image/*" />
+        <input type="file" id="img" class='form-control' name="img2" accept="image/*" />
+        <input type="file" id="img" class='form-control' name="img3" accept="image/*" />
+        <br>
+        <label for="filter">Product Category</label>
+        <select name="ProductCategory">
+            {% for filter , _ in filters %}
+            <option value="{{filter}}">{{filter}}</option>
+            {% endfor %}
+        </select>
+        <button class='btn btn-secondary btn-lg btn-block'>add product</button>
+    </form>
+</div>
 {% endblock body %}
