@@ -9,7 +9,7 @@ from django.core.mail import send_mail
 from home.models import Product
 # Create your views here.
 from django.contrib import messages
-from home.models import an_type
+from home.models import an_type , ProductImage
 
 
 @login_required
@@ -99,10 +99,29 @@ def add_product(request):
             price = request.POST.get('ProductPrice')
             ProductDescription = request.POST.get('ProductDescription')
             img = request.FILES.get('img')
+            img1 = request.FILES.get("img1")
+            img2 = request.FILES.get('img2')
+            img3 = request.FILES.get('img3')
             query = request.POST.get('ProductCategory')
             print(name, price, ProductDescription, img, query)
-            Product.objects.create(
+            product = Product.objects.create(
                 name=name, description=ProductDescription, price=float(price), thumbnail=img, product_type=query)
+            product.save()
+            if img1  is not None:
+                print('first img')
+                ProductImage.objects.create(product = product , pictures = img1)
+            else:
+                pass
+            if img2 is not None:
+                print('2nd img')
+                ProductImage.objects.create(product = product , pictures = img2)
+            else:
+                pass
+            if img3 is not None:
+                print('3rd img')
+                ProductImage.objects.create(product = product , pictures = img2)
+            else:
+                pass
             messages.success(request, 'item created sucessfully')
             return redirect('ShowAllProducts')
 
