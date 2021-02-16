@@ -135,7 +135,6 @@ EMAIL_HOST_USER = os.environ['email']
 EMAIL_HOST_PASSWORD = os.environ['password']
 EMAIL_USE_TLS = True
 STATICFILES_DIRS = [
-    BASE_DIR / "static",
-    '/var/www/static/',
+    BASE_DIR / "ec/static",
 ]
 STATIC_ROOT = BASE_DIR / 'staticfiles'
