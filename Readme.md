@@ -1,4 +1,4 @@
-#Project still in development phase
+# Project still in development phase
 
 _To use the website as seller you have to acess the admin panel_
 -you nedd to make a new file named .env in the project man folder &
