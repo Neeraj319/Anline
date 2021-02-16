@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+import os
 from .models import ProductsToDeliver
 from Auth_users.models import Buyer
 from django.core.mail import send_mail
@@ -9,7 +10,8 @@ from django.core.mail import send_mail
 from home.models import Product
 # Create your views here.
 from django.contrib import messages
-from home.models import an_type , ProductImage
+from home.models import an_type, ProductImage
+from home.models import ProductImage
 
 
 @login_required
@@ -65,11 +67,12 @@ def SellerProductDetail(request, pk):
         context = {
             'product_details': product_details,
             'address': address,
-            'extra_charge' : extra_charge
+            'extra_charge': extra_charge
         }
     return render(request, 'SellerProduct.html', context)
 
 
+@login_required
 def ShowAllProducts(request):
     try:
         if request.user.buyer:
@@ -107,19 +110,19 @@ def add_product(request):
             product = Product.objects.create(
                 name=name, description=ProductDescription, price=float(price), thumbnail=img, product_type=query)
             product.save()
-            if img1  is not None:
+            if img1 is not None:
                 print('first img')
-                ProductImage.objects.create(product = product , pictures = img1)
+                ProductImage.objects.create(product=product, pictures=img1)
             else:
                 pass
             if img2 is not None:
                 print('2nd img')
-                ProductImage.objects.create(product = product , pictures = img2)
+                ProductImage.objects.create(product=product, pictures=img2)
             else:
                 pass
             if img3 is not None:
                 print('3rd img')
-                ProductImage.objects.create(product = product , pictures = img2)
+                ProductImage.objects.create(product=product, pictures=img3)
             else:
                 pass
             messages.success(request, 'item created sucessfully')
@@ -135,7 +138,13 @@ def delete_product(request, pk):
             return redirect('home')
     except:
         product = Product.objects.get(pk=pk)
+        product_images = ProductImage.objects.filter(product=product)
         if request.method == "POST":
+            if product_images is not None:
+                for i in product_images:
+                    os.remove('media/' + str(i.pictures))
+                    print('deleted')
+            os.remove('media/' + str(product.thumbnail))
             product.delete()
             messages.success(request, 'item deleted sucessfully')
             return redirect('ShowAllProducts')
