@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, HttpResponse, Http404 , HttpResponseRedirect
+from django.shortcuts import render, redirect, HttpResponse, Http404, HttpResponseRedirect
 from .models import Product, Cart, ProductImage
 from django.shortcuts import get_object_or_404
 from django.contrib import messages
@@ -10,6 +10,9 @@ from django.views.generic import ListView
 from django.core.mail import send_mail
 from seller.models import ProductsToDeliver
 from product_review.models import PorductReview
+from datetime import datetime
+from datetime import timedelta
+from datetime import date
 # Create your views here.
 
 
@@ -49,7 +52,7 @@ def product_detail(request, pk):
     context = {'product': product, 'cart': cart,
                'more_images': more_product_images,
                'more_products': more_products[0:3],
-               'product_review' : product_review
+               'product_review': product_review
                }
     return render(request, 'detail_product.html', context)
 
@@ -93,13 +96,15 @@ def buy_product(request, pk):
         if request.user.seller:
             return redirect('SellersHome')
     except:
+        Begindatestring = date.today()
+        DileveryDate = Begindatestring + timedelta(days=4)
         product = Product.objects.get(pk=pk)
         user_email = request.user.email
         if request.method == "POST":
             ProductsToDeliver.objects.create(
-                product=product, user=request.user.buyer)
-            send_mail('order came from ' + str(request.user.buyer), 'an order from ' + str(request.user.buyer) + 'has come' + product.name + '\nproduct url - http://127.0.0.1:8000/detail/' + str(product.pk), user_email,  [
-                'itskop520@gmail.com'])
+                product=product, user=request.user.buyer, ProductDeliveryDate=DileveryDate)
+            # send_mail('order came from ' + str(request.user.buyer), 'an order from ' + str(request.user.buyer) + 'has come' + product.name + '\nproduct url - http://127.0.0.1:8000/detail/' + str(product.pk), user_email,  [
+            #     'itskop520@gmail.com'])
 
             messages.success(request, 'item order sucessflly')
             return redirect('buy', product.pk)
@@ -128,35 +133,38 @@ def User_Ordered_Product(request):
 
 @login_required
 def profile(request, user_name):
-    buyer = Buyer.objects.get(user = request.user)
+    buyer = Buyer.objects.get(user=request.user)
     if buyer == request.user.buyer:
-        if request.method =="POST":
+        if request.method == "POST":
             address = request.POST.get('address')
             phone = request.POST.get("phone")
             if (address or phone) == '':
-                messages.error(request , 'fileds cant be empty')
-                return redirect('profile' , request.user.buyer)
+                messages.error(request, 'fileds cant be empty')
+                return redirect('profile', request.user.buyer)
             else:
                 buyer.phone = phone
                 buyer.address = address
                 buyer.save()
-                messages.success(request , 'changes saved sucessfully')
-                return redirect('profile' , request.user.buyer)
+                messages.success(request, 'changes saved sucessfully')
+                return redirect('profile', request.user.buyer)
 
         context = {
-            'profle' : buyer
+            'profle': buyer
         }
     else:
         return redirect('home')
-    return render(request , 'profile.html' , context)
+    return render(request, 'profile.html', context)
+
+
 @login_required
-def product_review(request , pk):
+def product_review(request, pk):
     if request.method == "POST":
         review = request.POST.get('review')
-        product = Product.objects.get(pk =pk)
-        PorductReview.objects.create(user = request.user.buyer , product = product , review = review)
+        product = Product.objects.get(pk=pk)
+        PorductReview.objects.create(
+            user=request.user.buyer, product=product, review=review)
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
     context = {
-        'product' : product
+        'product': product
     }
-    return render(request , 'detail_product.html' , context)
+    return render(request, 'detail_product.html', context)

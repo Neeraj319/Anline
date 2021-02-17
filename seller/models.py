@@ -11,6 +11,7 @@ class ProductsToDeliver(models.Model):
     ProductPackaged = models.BooleanField(default=False)
     ProductShipeed = models.BooleanField(default=False)
     ProductDilivered = models.BooleanField(default=False)
+    ProductDeliveryDate = models.DateField(auto_now_add=False)
 
     def __str__(self):
         return f'{self.product}'

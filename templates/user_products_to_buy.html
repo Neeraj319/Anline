@@ -11,11 +11,15 @@
         {% for product in Product %}
         <a href="{% url 'product_detail' product.product.pk %}">
             <br>
-            <img class='img-rounded' src="{{product.product.thumbnail.url}}" alt="" height='200' width='200'>
-            <h1>
+            <img class='rounded-circle' src="{{product.product.thumbnail.url}}" alt="" height='200' width='200'>
+            <h4 class='text-dark'>
                 {{product.product}}
-            </h1>
+            </h4>
+
         </a>
+        <p>
+            get it by : {{product.ProductDeliveryDate}}
+        </p>
         {% if product.ProductDilivered %}
         <button class='btn btn-primary'>ProductDilivered </button>
         {% elif product.ProductShipeed %}

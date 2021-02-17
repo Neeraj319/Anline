@@ -14,9 +14,16 @@
     <h1>{{product_details.product.name}}</h1>
     <p>
         {{product_details.product.description}}
+        <br>
+        <h3 class='text-warning'>from : {{product_details.user.user.first_name}} {{product_details.user.user.last_name}}
+        </h3>
+        <h3 class='text-warning'>Phone : {{product_details.user.phone}}</h3>
     </p>
     NRS {{extra_charge}}
     <br>
+    <h4>
+        final date : {{product_details.ProductDeliveryDate}}
+    </h4>
     <hr>
     place to deliver:
     <p>
