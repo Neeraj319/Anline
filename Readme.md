@@ -8,3 +8,16 @@ email=your_email
 password=yourpassword
 ```
 & you are ready
+***note in settings.py line no 138 there is:
+```
+STATICFILES_DIRS = [
+    BASE_DIR / "ec/static",
+]
+```
+change this to:
+```
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
+```
+***
