@@ -1,4 +1,4 @@
-# Released ([a link](https://anline.pythonanywhere.com/))
+# Released ([URL to project](https://anline.pythonanywhere.com/))
 
 _To use the website as seller you have to acess the admin panel_
 ***you nedd to make a new file named .env in the project main folder &***
