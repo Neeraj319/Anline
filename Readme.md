@@ -1,4 +1,4 @@
 # Anline
 
-A online shopping site made in Django.
+An online shopping site made in Django.
 
