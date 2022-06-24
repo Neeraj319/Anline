@@ -1,4 +1,4 @@
-from python:3.10-slim-buster
+FROM python:3.10-slim-buster
 
 ENV PYTHONUNBUFFERED=1
 ENV PYTHONPATH "${PYTHONPATH}:/app"
